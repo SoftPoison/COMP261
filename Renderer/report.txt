@@ -1,0 +1,31 @@
+Student ID: 300436382
+Username: williatoma
+------- report -------
+
+What my code does:
+  * Reads polygons and the light source from a given file
+  * Marks hidden polygons
+  * Computes the shading of each polygon using Gauraud shading
+  * Renders with the z-buffer
+  * Renders 99.9% whisker/hole free
+  * Scene can be rotated, scaled, and translated by the user
+  * Additional light sources can be dynamically added, modified, and removed from the scene
+
+Notes:
+  * I did not follow the edgelist code from the lecture slides, instead coming up with my own method.
+    The reason for this was when I tried to implement the code, it turned out quite buggy, with whiskers
+    everywhere. I spent some time with a pen and a bit of paper and worked out another method that ended
+    up working *a lot* better.
+  * In my scene rotations, I chose not to rotate the light souce as I wanted it to act more like the
+    model was being rotated in the scene, rather than the camera moving around the scene. My reason for
+    this is simply that I thought it looked cooler ¯\_(ツ)_/¯
+
+How my program was tested:
+  * When first creating my program, I tested it with the provided test classes
+  * Later on, once I had started getting it to render, most of my testing became stepping through the
+    code with a debugger attached. It was certainly a painful time trying to fix the edgelist code
+
+Unresolved bugs:
+  * Sometimes there may be *tiny* whiskers. I have decided that since they're so small, they aren't
+    worth trying to fix, as it may make things that usually render properly no longer look correct.
+

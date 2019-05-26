@@ -1,0 +1,53 @@
+Username: williatoma
+Student ID: 300436382
+------- report -------
+
+What my program does:
+  * Reads the data and draws a map
+  * Constructs a graph stucture using collections
+  * Map can be panned and zoomed using buttons or the mouse
+  * Intersections can be selected and information about them is outputted
+  * O(1) complexity lookup for connecting roads
+  * Trie used for road lookup, returning exact match or partial matches
+      * Partial matches from trie lookup are displayed within the search box
+      * For that, a custom search box was implemented
+  * Quad-tree implemented and used to find all intersections near a mouse
+    click, then linear search through the matches to find the closest.
+      * Final linear search is fairly efficient due to small subset returned
+        by the quad-tree
+  * Polygon data is used to draw a nice labelled map
+  * Map is optimised by
+     1. Only drawing objects that are on screen
+     2. Only drawing objects once they are large enough to be visible
+     3. Only drawing certain objects once the zoom has passed a given threshold
+
+What my program doesn't do:
+  * Handle certain key commands in the search box as it has custom input
+    handling (and I don't have *that* kind of time)
+  * Render everything all at once. Saves on compute time but makes it look a
+    little bare at some zoom levels
+
+Data structures used:
+  * Hashmaps for constant time lookups of data by ID
+  * Lists for storing road segments
+  * Sets for storing unique values
+  * Trie for looking up road names by prefix
+  * Quad-tree for searching for intersections near a mouse-click
+  * Simple data structures (holding basic information such as IDs and other
+    descriptors) were used for intersections, road info, road segments, and
+    polygons. They each have methods for drawing to the screen.
+
+How I tested my program:
+  * Since there were only two data sets (small and large), it was hard to know
+    whether or not the map (with polygons) was being displayed correctly or
+    not, so for testing that aspect I had to compare with how friends' maps
+    looked. It turns out I misinterpreted some parts of the data, so I later
+    fixed my code so that it would it correctly.
+  * While developing methods to draw the roads and intersections on screen I
+    discovered that it would perform terribly as it was attempting to draw
+    everything, whether or not it was actually on screen. I patched this with
+    some simple checks before attempting to draw.
+  * To test the quad tree I first created methods so that it would display the
+    bounding boxes to see if they were being generated correctly or not. I
+    also tested edge cases by clicking in a range of different locations, at
+    different zoom levels.

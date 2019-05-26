@@ -1,0 +1,139 @@
+Student ID: 300436382
+Username: williatoma
+------- report -------
+
+What my program does:
+  * All of core, completion, and challenge.
+
+A* pseudocode:
+
+Input: a weighted digraph, a start node, and a goal node
+Output: a list of nodes representing the shortest path from the start to the goal
+
+explored_path := map node -> node
+cost_to_goal := map node -> cost from node to goal
+path_cost := map node -> cost of getting to the goal through this node
+fringe := priority queue of nodes, sorted by estimated cost from node -> goal
+visited := set of visited nodes
+
+heuristic_sf := 0.0083 if speed is our heuristic function, 1 otherwise
+
+cost_to_goal(start) := euclidean distance to goal from start, multiplied by heuristic_sf
+path_cost(start) := 0
+add start to the fringe
+
+while the fringe isn't empty:
+    node* := fringe.poll
+
+    loop if node* has already been visited
+
+    add node* to the visited set
+
+    break from the loop if node* = goal
+
+    for each edge out from node*:
+        neighbour* := node on the other side of the edge
+
+        loop if neighbour* is visited or isn't pathable along the edge
+
+        cost := path_cost(node*) + edge weight (augmented by the heuristic function (see implementation))
+        path_cost(neighbour*) := cost
+        cost_to_goal(neighbour*) := cost + euclidean distance to goal from neigbour* (times heuristic_sf)
+        add neighbour* to the fringe
+        put neighbour* -> node* in explored_path
+
+path := list of nodes
+add goal to path
+
+current := goal
+while explored_path has current as a key:
+    current := explored_path(current)
+    add current to path
+
+reverse the order of path
+
+return path
+
+--------- A* ---------
+
+The heuristic function for this implementation is the segments length, augmented by the road weight
+(the road speed and class) if we are using speed as the heuristic, further augmented by a weight
+which depends on if we want to avoid traffic lights or not (this weight is arbitrary).
+
+Articulation Points pseudocode:
+
+Input: root node
+Output: set of nodes which are articulation points in the component where root resides
+
+aps := empty set of nodes
+
+explored := empty set of nodes
+fringe := empty stack of nodes
+parents := map node -> node
+children := map node -> list of children nodes
+depths := map node -> node depth
+reach_backs := map node -> node reach back
+
+depths(root) := 0
+reach_backs(root) := 0
+
+num_subtrees := 0
+
+for each neighbour of root (rneighbour*):
+    parents(rneighbour) := root
+
+    if explored does not contain rneigbour:
+        push rneigbour onto fringe
+
+        while fringe is not empty:
+            node* := fringe.peek
+
+            if explored does not contain node*:
+                depth := depths(parents(node*)) + 1
+                depths(node*) := depth
+                reach_backs(node*) := depth
+
+                children(node*) := list of neigbours of node*, excluding node*'s parent
+                add node* to explored
+
+            else if children(node*) is not empty:
+                child* := one of the children of node*
+                remove child* from children(node*)
+
+                if child* has been visited:
+                    reach_backs(node*) := min(depths(child*), reach_backs(node*))
+                else:
+                    depths(child*) := depths(node*) + 1
+                    reach_backs(child*) := depths(node*) + 1
+                    parents(child*) := node*
+                    push child* to fringe
+
+            else:
+                if node* != rneighbour:
+                    parent* := parents(node)
+
+                    reach_backs(parent*) := min(reach_backs(node*), reach_backs(parent*))
+
+                    if reach_backs(node*) >= depths(parent*):
+                        add parent* to aps
+
+                remove the top element of fringe
+
+        increment num_subtrees by 1
+
+if num_subtrees > 1:
+    add root to aps
+
+return aps
+
+-------- APs ---------
+
+
+How I tested my program:
+  * It was quite hard to test the pathfinding algorithm, especially with restrictions implemented, as
+    it's difficult to tell if the path found was correct. In the end it was just a case of "if it
+    looks about right, it's probably right".
+  * For a while I was having issues with my iterative articulation points algorithm. I managed to fix
+    it by setting break points and stepping through my code. It turns out all I needed was a different
+    way of testing to see if nodes had been visited or not.
+

@@ -1,0 +1,27 @@
+vars $x, $y;
+while (gt(fuelLeft, 0)) {
+	if (eq(0, numBarrels)) {
+		wait;
+	}
+	else {
+        $x = barrelLR;
+		$y = barrelFB;
+		if (and(eq($x, 0), eq($y, 0))) {
+			takeFuel;
+		}
+		else {
+			if (eq($y, 0)) {
+				if (lt($x, 0)) {
+					turnL;
+                }
+				else {
+					turnR;
+                }
+			} elif (gt($y, 0)) {
+				move;
+			} else {
+				turnAround;
+			}
+		}
+	}
+}
