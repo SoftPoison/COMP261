@@ -8,6 +8,8 @@ Assignment 3: Renderer/
 
 Assignment 4: Parser/
 
+Assignment 5: Strings/
+
 ### Grades
 
 Assignment 1: 100%
