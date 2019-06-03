@@ -1,0 +1,75 @@
+Student ID: 300436382
+Username: williatoma
+------- report -------
+
+Question 1:
+  * Initially, and I'm still unsure why, KMP was running slower than brute force 99% of
+    the time. I then switched from Oracle Java 12 to OpenJDK 8 and KMP started
+    performing faster than brute force, as should be expected.
+  * Here are some measured results comparing the algorithms when running on OpenJDK 8:
+      * war_and_peace.txt
+          * "recognize a motion" - BF: 11056960ns, KMP: 9561975ns, 14% faster
+          * "and" - BF: 421ns, KMP: 426ns, 1% slower
+          * "aardvark" - BF: 12479478ns, KMP: 9772239ns, 22% faster
+      * pi.txt
+          * "1234" - BF: 148822ns, KMP: 51650ns, 65% faster
+          * "111111" - BF: 1178115ns, KMP: 877790ns, 25% faster
+          * "aaaaaaaaaa" - BF: 3216017ns, KMP: 2964640ns, 8% faster
+          * "abcdefgh" - BF: 2897829ns, KMP: 2310646ns, 20% faster
+
+Question 2:
+  * Refer to `war_and_peace_tree.txt` for outputted binary tree
+  * Output size: 1848598 bytes
+
+Question 3:
+  * Output sizes:
+      * war_and_peace.txt:
+        Original size: 3258246 bytes
+        Output size: 1848598 bytes
+        Size reduction: 43%
+      * taisho.txt
+        Original size: 3649944 bytes 
+        Output size: 1542656 bytes
+        Size reduction: 58%
+      * pi.txt
+        Original size: 1010003 bytes
+        Output size: 443632 bytes
+        Size reduction: 56%
+      * lenna.txt
+        Original size: 306296 bytes
+        Output size: 155037 bytes
+        Size reduction: 49%
+      * apollo.txt
+        Original size: 6815380 bytes
+        Output size: 3135673 bytes
+        Size reduction: 54%
+  * The best compression was achieved on taisho.txt
+  * What makes some files achieve a better size reduction is a smaller character set.
+    I'm not exactly sure why taisho has the best compression ratio, because it has
+    over 8000 unique characters.
+
+Question 4:
+  * Using lenna.txt (original size: 306296 characters):
+      * Window size: 100 - output size: 912827 characters, 2.98x larger
+      * Window size: 1000 - output size: 763245 characters, 2.49x larger
+      * Window size: 5000 - output size: 712573 characters, 2.32x larger
+      * Window size: 10000 - output size: 675363 characters, 2.20x larger
+      * Window size: 50000 - output size: 637787 characters, 2.08x larger
+      * Window size: 100000 - output size: 616639 characters, 2.01x larger
+  * Increasing the size of the window decreases the size of the outputted file, to a
+    certain extent
+  * I think the size of the compressed file being larger than the input is due to the
+    output format. A lot of the file size increase is due to the use of braces,
+    delimiters, and storing numbers as text.
+    A better alternative would be to store the data in chunks of four bytes, with the
+    first two bytes being the offset, byte 3 being the length, and byte 4 being the
+    character. This specific example however imposes a max offset of 2^16 and length
+    of 2^8. An even better alternative is to allocate the maximum number of bits
+    necessary based on the data, recording the number of bits used per block for later
+    decompression.
+
+Question 5:
+  * Yes and no. So with war_and_peace encoded with Huffman and outputted as a binary
+    string that is then compressed LZ, the output file is almost half the size, but if
+    you consider if the Huffman encoded file was NOT outputted as a binary string, then
+    LZ would likely be larger (due to what I mentioned above)

@@ -1,0 +1,33 @@
+[q]Part 1: 30[/q]
+[q]Part 2: 30[/q]
+[q]Part 3: 30[/q]
+[q]Part 4: 10[/q]
+
+Part 1: String Search (out of 30):
+ * [5] Correctly performs brute firce search
+ * [10] Creates the match table for the input pattern.
+ * [10] Performs correct StringSearch substring search with the pattern and text.
+ * [5] Answers question 1.
+
+Part 2: Huffman (out of 30):
+ * [2] Finds the frequency histogram for an input text.
+ * [10] Creates the coding tree for an input text.
+ * [5] Correctly encodes input.
+ * [5] Correctly decodes input.
+ * [8] Answers questions 2 and 3.
+
+Part 3: Lempel Ziv (out of 30):
+ * [15] Correctly performs Lempel Ziv compression.
+ * [5] Correctly performs Lempel Ziv decompression.
+ * [10] Answers questions 4 and 5.
+
+Part 4: Challenge (out of 10 + 5 spare marks):
+ * [10] Implement Boyer-Moore string search OR a more complex coding algorithm,
+        for example:
+         - Adaptive Huffman coding
+         - Arithmetic coding
+ * [5] Question 6: Find a algorithm for  so that |Z| << 2*(|X| + |Y|).
+
+Final mark calculation:
+
+[q]Part 1: 30[/q] + [q]Part 2: 30[/q] + [q]Part 3: 30[/q] + [q]Part 4: 10[/q]
