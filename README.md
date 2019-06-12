@@ -20,3 +20,5 @@ Assignment 3: 100%
 
 Assignment 4: 93% (due to bug, fixed in uploaded (public) version)
 
+Assignment 5: 100%
+
